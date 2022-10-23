@@ -1,18 +1,18 @@
 {
     "version": 2,
-  
-  
-    "outputDirectory": "dist",
+
+    "build command": "tsc -p",
+    "output directory": "dist",
     "builds": [
-      {
-        "src": "dist/index.js",
-        "use": "@vercel/node"
-      }
+        {
+            "src": "dist/index.js",
+            "use": "@vercel/node"
+        }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/index.js"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "dist/index.js"
+        }
     ]
-  }
+}
