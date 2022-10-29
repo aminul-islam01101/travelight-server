@@ -8,12 +8,21 @@ import hotels = require('./data/travelight.json');
 const app: Express = express();
 const port = process.env.PORT || 8000;
 app.use(cors());
+const users = [
+    {id:1, name: 'some1', email: "some1@gmail.com"},
+    {id:2, name: 'some2', email: "some2@gmail.com"},
+    {id:3, name: 'some3', email: "some3@gmail.com"},
+];
+
 
 app.get('/', (_req, res: Response) => {
     res.send('Express + TypeScript Server');
 });
 app.get('/hotel', (req: Request, res: Response) => {
     res.send(categories);
+});
+app.get('/users', (req: Request, res: Response) => {
+    res.send(users);
 });
 app.get('/hotels/:id', (req: Request, res: Response) => {
     const { id } = req.params;
