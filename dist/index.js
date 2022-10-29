@@ -19,6 +19,11 @@ const mongodb_1 = require("mongodb");
 const cors = require("cors");
 const categories = require("./data/categories.json");
 const hotels = require("./data/travelight.json");
+const app = (0, express_1.default)();
+const port = process.env.PORT || 8000;
+// middleware
+app.use(cors());
+app.use(express_1.default.json());
 // mongo credentials
 // Username: adminTravelight
 // Password: 8HfJ014ijrVFXa9N
@@ -30,18 +35,17 @@ const client = new mongodb_1.MongoClient(uri, {
 });
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const userCollection = client.db('adminTravelight').collection('users');
-        const users = { name: 'some2', email: 'some2@gmail.com' };
-        const result = yield userCollection.insertOne(users);
-        console.log(result);
+        app.post('/users', (req) => {
+            const user = req.body;
+            console.log(user);
+        });
     }
     finally {
     }
 });
 run().catch((err) => console.log(err));
-const app = (0, express_1.default)();
-const port = process.env.PORT || 8000;
-app.use(cors());
 const users = [
     { id: 1, name: 'some1', email: 'some1@gmail.com' },
     { id: 2, name: 'some2', email: 'some2@gmail.com' },

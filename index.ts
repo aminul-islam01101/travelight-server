@@ -2,10 +2,16 @@
 /* eslint-disable no-underscore-dangle */
 import express, { Express, Request, Response } from 'express';
 import { MongoClient, MongoClientOptions, ServerApiVersion } from 'mongodb';
-
 import cors = require('cors');
 import categories = require('./data/categories.json');
 import hotels = require('./data/travelight.json');
+
+const app: Express = express();
+const port = process.env.PORT || 8000;
+
+// middleware
+app.use(cors());
+app.use(express.json());
 
 // mongo credentials
 // Username: adminTravelight
@@ -25,19 +31,17 @@ interface Users {
 }
 const run = async () => {
     try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const userCollection = client.db('adminTravelight').collection<Users>('users');
-        const users = { name: 'some2', email: 'some2@gmail.com' };
-
-        const result = await userCollection.insertOne(users);
-        console.log(result);
+        app.post('/users', (req) => {
+            const user = req.body as Users;
+            console.log(user);
+        });
     } finally {
     }
 };
 run().catch((err) => console.log(err));
 
-const app: Express = express();
-const port = process.env.PORT || 8000;
-app.use(cors());
 const users = [
     { id: 1, name: 'some1', email: 'some1@gmail.com' },
     { id: 2, name: 'some2', email: 'some2@gmail.com' },
